@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html>
 
 <head>
@@ -9,24 +8,54 @@
 <body>	
 	<script>
 		function secondHighest(arr) {
-			//Write your code here
-			
+			// Edge case: if array is empty or has only 1 element, return -Infinity
+			if (arr.length < 2) {
+				return -Infinity;
+			}
+
+			// Initialize variables to track the highest and second-highest unique values
+			let highest = -Infinity;
+			let secondHighest = -Infinity;
+
+			// Iterate through the array to find the highest and second-highest distinct values
+			for (let num of arr) {
+				// Update highest and second-highest values
+				if (num > highest) {
+					secondHighest = highest;  // The old highest becomes the second-highest
+					highest = num;  // Update the highest to the new value
+				} else if (num > secondHighest && num < highest) {
+					// Update second-highest only if it's not equal to the highest value
+					secondHighest = num;
+				}
+			}
+
+			// If no second-highest value is found (all elements are the same), return -Infinity
+			return secondHighest === -Infinity ? -Infinity : secondHighest;
 		}
 
 		function Main() {
 			var n = prompt("Enter the number of elements");
 			var arr = [];
 			for (var i = 0; i < n; i++) {
-				arr[i] = prompt("Enter element " + (i+1));
+				let input = prompt("Enter element " + (i + 1));
+				// Ensure valid number input and convert to integer
+				arr[i] = parseInt(input, 10);
+				
+				// Check if input is a valid number
+				if (isNaN(arr[i])) {
+					alert("Please enter a valid number for element " + (i + 1));
+					return;
+				}
 			}
 			alert(secondHighest(arr));
 		}
+
 		Main();
 	</script>
 
-    <script type="text/javascript" src="./script.js">
-</script>
+    <script type="text/javascript" src="./script.js"></script>
 
 </body>
 
 </html>
+
